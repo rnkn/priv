@@ -88,7 +88,7 @@ F_BINPATH    0000200  allow any command in given path
 .IP
 F_GIVEREASON 0000400  ask for reason for running priv
 .IP
-F_CLEANENV   0001000  reset environment first 
+F_CLEANENV   0001000  reset environment first (default behaviour)
 .IP
 F_SU         0100000  check su to an account
 .PD
@@ -141,9 +141,7 @@ All signal handling is reset to the default handlers (refer to
 .IR "signal" (3)).
 .TP
 3.
-If
-.I F_CLEANENV
-is specified, all environment variables are discarded, and the
+All environment variables are discarded, and the
 following are defined:
 .IP
 .B "COLUMNS"
