@@ -113,8 +113,8 @@ main(int argc, char **argv, char **envp)
 
 	pw = getpwuid(getuid());
 	if (pw == NULL) {
-		syslog(LOG_NOTICE, "%s: can't fetch password entry for uid %d",
-		    myname, getuid());
+		syslog(LOG_NOTICE, "can't fetch password entry for uid %d",
+		    getuid());
 		errx(EXIT_VAL, "can't fetch password entry for uid %d",
 		    getuid());
 	}
