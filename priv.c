@@ -119,8 +119,20 @@ main(int argc, char **argv, char **envp)
 		    getuid());
 	}
 	myname = xstrdup(pw->pw_name);	/* copy so we can use getpw* later */
+	if (strlen(pw->pw_name) >= sizeof(myfullname)) {
+		syslog(LOG_INFO, "%s: name too long", pw->pw_name);
+		errx(EXIT_VAL, "username too long");
+	}
 	strcpy(myfullname, pw->pw_name);
 	if ((logname = getlogin()) != NULL && strcmp(logname, myname)) {
+		int	fnameleft;
+
+		fnameleft = sizeof(myfullname) - strlen(myfullname) - 1;
+		if (strlen(logname) + 4 > fnameleft) {
+			syslog(LOG_INFO,
+			    "%s: login name too long", myname);
+			errx(EXIT_VAL, "login name too long");
+		}
 		strcat(myfullname, " (");
 		strcat(myfullname, logname);
 		strcat(myfullname, ")");
