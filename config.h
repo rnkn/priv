@@ -1,0 +1,113 @@
+/* config.h.  Generated automatically by configure.  */
+/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+/*
+ * Copyright (c) 1996, 1997 Simon Burge <simonb@telstra.com.au>.
+ * All rights reserved.
+ * Portions Copyright (c) 1997 Luke Mewburn <lukem@connect.com.au>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *	This product includes software developed by Simon Burge, Werj.
+ * 4. The name of the author may not be used to endorse or promote products
+ *    derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ */
+
+/* Define to empty if the keyword does not work.  */
+/* #undef const */
+
+/* Define if you don't have vprintf but do have _doprnt.  */
+/* #undef HAVE_DOPRNT */
+
+/* Define if you have the vprintf function.  */
+#define HAVE_VPRINTF 1
+
+/* Define as the return type of signal handlers (int or void).  */
+#define RETSIGTYPE void
+
+/* Define to `unsigned' if <sys/types.h> doesn't define.  */
+/* #undef size_t */
+
+/* Define if you have the ANSI C header files.  */
+#define STDC_HEADERS 1
+
+/* Define if you can safely include both <sys/time.h> and <time.h>.  */
+#define TIME_WITH_SYS_TIME 1
+
+/* Define if your <sys/time.h> declares struct tm.  */
+/* #undef TM_IN_SYS_TIME */
+
+/* Define if you have the err function.  */
+#define HAVE_ERR 1
+
+/* Define if you have the getcwd function.  */
+#define HAVE_GETCWD 1
+
+/* Define if you have the getdtablesize function.  */
+#define HAVE_GETDTABLESIZE 1
+
+/* Define if you have the getwd function.  */
+#define HAVE_GETWD 1
+
+/* Define if you have the strdup function.  */
+#define HAVE_STRDUP 1
+
+/* Define if you have the strerror function.  */
+#define HAVE_STRERROR 1
+
+/* Define if you have the strsep function.  */
+#define HAVE_STRSEP 1
+
+/* Define if you have the strspn function.  */
+#define HAVE_STRSPN 1
+
+/* Define if you have the strtoul function.  */
+#define HAVE_STRTOUL 1
+
+/* Define if you have the syslog function.  */
+#define HAVE_SYSLOG 1
+
+/* Define if you have the <limits.h> header file.  */
+#define HAVE_LIMITS_H 1
+
+/* Define if you have the <stdarg.h> header file.  */
+#define HAVE_STDARG_H 1
+
+/* Define if you have the <stdlib.h> header file.  */
+#define HAVE_STDLIB_H 1
+
+/* Define if you have the <string.h> header file.  */
+#define HAVE_STRING_H 1
+
+/* Define if you have the <stringlist.h> header file.  */
+/* #undef HAVE_STRINGLIST_H */
+
+/* Define if you have the <sys/syslog.h> header file.  */
+#define HAVE_SYS_SYSLOG_H 1
+
+/* Define if you have the <syslog.h> header file.  */
+#define HAVE_SYSLOG_H 1
+
+/* Define if you have the <unistd.h> header file.  */
+#define HAVE_UNISTD_H 1
+
+/* the path to the su program on your system  */
+#define PATH_SU "/usr/bin/su"
