@@ -1,0 +1,105 @@
+# Copyright (c) 1996, 1997 Simon Burge <simonb@telstra.com.au>.
+# All rights reserved.
+# Portions Copyright (c) 1997 Luke Mewburn <lukem@connect.com.au>
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All advertising materials mentioning features or use of this software
+#    must display the following acknowledgement:
+#	This product includes software developed by Simon Burge, Werj.
+# 4. The name of the author may not be used to endorse or promote products
+#    derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+# AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+
+#### Start of system configuration section. ####
+
+srcdir = @srcdir@
+VPATH = @srcdir@
+
+CC = @CC@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+CFLAGS = @CFLAGS@
+DEFS = -DPRIVDIR=\"${sysconfdir}/priv\"
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+sysconfdir = @sysconfdir@
+
+# Where to install the manual page
+mandir = $(prefix)/man/man1
+# Extension (not including `.') for the installed manual page filenames
+manext = 1
+
+#### End of system configuration section. ####
+
+SHELL = /bin/sh
+BINMODE = 4555
+
+# This rule allows us to supply the necessary -D options
+# in addition to whatever the user asks for.
+.c.o:
+	${CC} -I${srcdir} ${CPPFLAGS} ${CFLAGS} ${DEFS} -c $<
+
+OBJ = priv.o stringlist.o @LIBOBJS@
+
+all: priv
+
+distall: ${srcdir}/configure ${srcdir}/config.h
+
+priv: ${OBJ} @LIBOBJS@
+	${CC} ${LDFLAGS} -o $@ ${OBJ} ${LIBS}
+
+${OBJ}: ${srcdir}/priv.h config.h 
+
+install: all ${srcdir}/priv.1 installdirs
+	${INSTALL_PROGRAM} -o root -m ${BINMODE} priv ${bindir}/${binprefix}priv
+	${INSTALL_DATA} ${srcdir}/priv.1 ${mandir}/${manprefix}priv.${manext}
+
+installdirs: mkinstalldirs
+	${srcdir}/mkinstalldirs ${bindir} ${mandir} ${sysconfdir}/priv
+
+uninstall:
+	rm -f ${bindir}/${binprefix}priv
+	rm -f ${mandir}/less.${manext} ${mandir}/lesskey.${manext}
+	echo "Remove ${sysconfdir}/priv manually"
+
+TAGS:
+	cd ${srcdir} && etags *.c *.h
+
+clean:
+	rm -f *.o core priv
+
+mostlyclean: clean
+
+distclean: clean
+	rm -f Makefile config.status config.log config.cache config.h
+	rm -f stamp-h stamp-h.in
+
+realclean: distclean
+	rm -f TAGS
+
+cvsclean: realclean
+	rm -f configure config.h.in
