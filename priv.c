@@ -585,7 +585,7 @@ lockdown(int flags, char *prog, struct passwd *user, char **envp)
 	for (i = 0; i < NSIG; i++)
 		(void) signal(i, SIG_DFL);
 
-		/* Nuke the environment, reset from scratch */
+	/* Nuke the environment, reset from scratch */
 	if (! (flags & F_CLEANENV))
 		return(envp);
 

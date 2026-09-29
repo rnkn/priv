@@ -1,0 +1,37 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:530: checking for gcc
+configure:643: checking whether the C compiler (gcc -std=gnu89 -Wno-implicit-int -fcommon  ) works
+configure:659: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest    conftest.c  1>&5
+configure:685: checking whether the C compiler (gcc -std=gnu89 -Wno-implicit-int -fcommon  ) is a cross-compiler
+configure:690: checking whether we are using GNU C
+configure:718: checking whether gcc -std=gnu89 -Wno-implicit-int -fcommon accepts -g
+configure:780: checking for a BSD compatible install
+configure:835: checking for su
+configure:874: checking how to run the C preprocessor
+configure:954: checking for ANSI C header files
+configure:1058: checking whether time.h and sys/time.h may both be included
+configure:1097: checking for limits.h
+configure:1097: checking for stdarg.h
+configure:1097: checking for stdlib.h
+configure:1097: checking for string.h
+configure:1097: checking for stringlist.h
+configure:1097: checking for syslog.h
+configure:1097: checking for unistd.h
+configure:1097: checking for sys/syslog.h
+configure:1135: checking for working const
+configure:1210: checking for size_t
+configure:1243: checking whether struct tm is in sys/time.h or time.h
+configure:1278: checking return type of signal handlers
+configure:1319: checking for vprintf
+configure:1426: checking for getcwd
+configure:1426: checking for getwd
+configure:1426: checking for getdtablesize
+configure:1426: checking for syslog
+configure:1481: checking for err
+configure:1481: checking for strdup
+configure:1481: checking for strsep
+configure:1481: checking for strerror
+configure:1481: checking for strspn
+configure:1481: checking for strtoul
