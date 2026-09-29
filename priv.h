@@ -42,6 +42,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <grp.h>
 #ifdef HAVE_MALLOC_H
 #include <malloc.h>
@@ -120,7 +121,7 @@ int	 check_date(const char *);
 char	*concatstr(const char *, ...);
 char	*build_log_message(const char *, char **, const char *, unsigned int);
 void	 getreason(const char *, const char *);
-char   **lockdown(int, char *, struct passwd *, char **);
+char   **lockdown(int, char *, struct passwd *, char **, int);
 void	 splitpath(const char *, char **, char **);
 char	*which(const char *);
 char	*xstrdup(const char *);

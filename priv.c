@@ -70,7 +70,9 @@ main(int argc, char **argv, char **envp)
 	char		*realprog, *realprogdir, *realprogbase;
 	char		*expire, *useras, *flags, *cmd;
 	char		*tmp, *suuser;
+	char		procfd[32];
 	int		sudash;
+	int		progfd;
 	int		log_malformed, bad_line, ok;
 	unsigned int	nflags;
 	int		sverr;
@@ -308,13 +310,40 @@ main(int argc, char **argv, char **envp)
 			    myname, suuser, argv[2]);
 		else
 			syslog(LOG_INFO, "su from %s to %s\n", myname, suuser);
-		envp = lockdown(nflags, realprog, pw, envp);
+		envp = lockdown(nflags, realprog, pw, envp, -1);
 		setuid(0);	/* Set real & effective uid so "su" will work */
 		execve(PATH_SU, nargv->sl_str, envp);
 		sverr = errno;
 		syslog(LOG_NOTICE, "%s: not ok: could not su", myfullname);
 		errno = sverr;
 		err(EXIT_VAL, "couldn't run su");
+	}
+
+	/*
+	 * Open the command once, before dropping privileges, and use
+	 * the descriptor for the checks and the exec below, so the file
+	 * cannot be substituted between the checks and the execve().
+	 */
+	{
+		int	nofollow;
+
+		nofollow = 0;
+#ifdef O_NOFOLLOW
+		if (!(nflags & F_SYMLINK))
+			nofollow = O_NOFOLLOW;
+#endif
+		progfd = open(realprog, O_RDONLY | nofollow);
+		if (progfd < 0) {
+			sverr = errno;
+			if (errno == ELOOP) {
+				syslog(LOG_NOTICE,
+				    "%s: not ok: command is symlink: %s",
+				    myfullname, realprog);
+				errx(EXIT_VAL, "command is sym-link");
+			}
+			errno = sverr;
+			err(EXIT_VAL, "can't open %s", realprog);
+		}
 	}
 
 	/* Set up the permissions */
@@ -338,8 +367,13 @@ main(int argc, char **argv, char **envp)
 		err(EXIT_VAL, "setuid failed");
 	}
 
-	/* Check for sym-link */
+	/*
+	 * Check for sym-link.  When O_NOFOLLOW is available the open
+	 * above already failed on a symlink; fall back to lstat for
+	 * systems without it.
+	 */
 	if (!(nflags & F_SYMLINK)) {
+#ifndef O_NOFOLLOW
 		struct stat	st;
 
 		if (lstat(realprog, &st) < 0)
@@ -349,13 +383,14 @@ main(int argc, char **argv, char **envp)
 			    myfullname, realprog);
 			errx(EXIT_VAL, "command is sym-link");
 		}
+#endif
 	}
 
 	/* Check for set{u,g}id */
 	if (!(nflags & F_SETUID)) {
 		struct stat	st;
 
-		if (stat(realprog, &st) < 0)
+		if (fstat(progfd, &st) < 0)
 			err(EXIT_VAL, "can't stat %s", realprog);
 		if (st.st_mode & S_ISUID) {
 			syslog(LOG_NOTICE, "%s: not ok: command is setuid: %s",
@@ -372,8 +407,11 @@ main(int argc, char **argv, char **envp)
 	/* All's well so far, get ready to execute the command. */
 	syslog(LOG_INFO, build_log_message(myfullname, argv + 1, realprog,
 	    nflags));
-	envp = lockdown(nflags, realprog, pw, envp);
-	execve(realprog, argv + 1, envp);
+	envp = lockdown(nflags, realprog, pw, envp, progfd);
+	snprintf(procfd, sizeof(procfd), "/proc/self/fd/%d", progfd);
+	execve(procfd, argv + 1, envp);
+	if (errno == ENOENT)		/* no procfs - fall back to the name */
+		execve(realprog, argv + 1, envp);
 	sverr = errno;
 	syslog(LOG_NOTICE, "%s: not ok: could not execute: %s",
 	    myfullname, newprog);
@@ -571,7 +609,8 @@ getreason(const char *user, const char *prog)
  *	reset signals.
  */
 char **
-lockdown(int flags, char *prog, struct passwd *user, char **envp)
+lockdown(int flags, char *prog, struct passwd *user, char **envp,
+    int keepfd)
 {
 	StringList	*newenv;
 	char		*cur;
@@ -579,7 +618,8 @@ lockdown(int flags, char *prog, struct passwd *user, char **envp)
 
 		/* Close file descriptors */
 	for (i = 3; i < MAXFD; i++)
-		close(i);
+		if (i != keepfd)
+			close(i);
 
 		/* Reset signals */
 	for (i = 0; i < NSIG; i++)
