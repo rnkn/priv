@@ -669,17 +669,24 @@ which(const char *name)
 	if (strchr(name, '/'))
 		return((char *)name);
 
-	/* Get the path we're searching. */
-	if (!(path = getenv("PATH")))
-		path = DEFPATH;
+	/*
+	 * Get the path we're searching.  Only search a trusted default
+	 * path -- searching the user-supplied $PATH would let the user
+	 * point priv at their own program and run it as the target user.
+	 */
+	path = DEFPATH;
 	cur = path = xstrdup(path);
 
 	while ((p = strsep(&cur, ":")) != NULL) {
 		/*
-		 * It's a SHELL path -- double, leading and trailing colons
-		 * mean the current directory.
+		 * Empty path components mean the current directory in a
+		 * shell path -- skip them here rather than resolve the
+		 * command relative to the caller's working directory.
 		 */
-		sprintf(buf, "%s/%s", *p ? p : ".", name);
+		if (*p == '\0')
+			continue;
+		if (snprintf(buf, sizeof(buf), "%s/%s", p, name) >= (int)sizeof(buf))
+			continue;
 
 		if (access(buf, X_OK) == 0) {
 			if (path)
