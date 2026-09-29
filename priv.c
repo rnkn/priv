@@ -196,7 +196,8 @@ main(int argc, char **argv, char **envp)
 		 * damn about the command name...  If we have a bad
 		 * line, log an error to syslog, but only once...
 		 */
-		if (strspn(expire, "0123456789") != strlen(expire))
+		if (expire == NULL ||
+		    strspn(expire, "0123456789") != strlen(expire))
 			bad_line++;
 		if (flags && strspn(flags, "01234567") != strlen(flags))
 			bad_line++;

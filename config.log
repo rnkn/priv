@@ -1,0 +1,99 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:530: checking for gcc
+configure:643: checking whether the C compiler (gcc -std=gnu89 -Wno-implicit-int -fcommon  ) works
+configure:659: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest    conftest.c  1>&5
+configure:685: checking whether the C compiler (gcc -std=gnu89 -Wno-implicit-int -fcommon  ) is a cross-compiler
+configure:690: checking whether we are using GNU C
+configure:699: gcc -std=gnu89 -Wno-implicit-int -fcommon -E conftest.c
+configure:718: checking whether gcc -std=gnu89 -Wno-implicit-int -fcommon accepts -g
+configure:780: checking for a BSD compatible install
+configure:835: checking for su
+configure:874: checking how to run the C preprocessor
+configure:895: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:954: checking for ANSI C header files
+configure:967: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1034: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure: In function 'main':
+configure:1029:67: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1029 | if (XOR (islower (i), ISLOWER (i)) || toupper (i) != TOUPPER (i)) exit(2);
+      |                                                                   ^~~~
+configure:1025:1: note: include '<stdlib.h>' or provide a declaration of 'exit'
+ 1024 | #include <ctype.h>
+  +++ |+#include <stdlib.h>
+ 1025 | #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+configure:1058: checking whether time.h and sys/time.h may both be included
+configure:1072: gcc -std=gnu89 -Wno-implicit-int -fcommon -c -g -O2  conftest.c 1>&5
+configure:1097: checking for limits.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1097: checking for stdarg.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1097: checking for stdlib.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1097: checking for string.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1097: checking for stringlist.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1103:10: fatal error: stringlist.h: No such file or directory
+ 1103 | #include <$ac_hdr>
+      |          ^~~~~~~~~     
+compilation terminated.
+configure: failed program was:
+#line 1102 "configure"
+#include "confdefs.h"
+#include <stringlist.h>
+configure:1097: checking for syslog.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1097: checking for unistd.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1097: checking for sys/syslog.h
+configure:1107: gcc -std=gnu89 -Wno-implicit-int -fcommon -E  conftest.c >/dev/null 2>conftest.out
+configure:1135: checking for working const
+configure:1189: gcc -std=gnu89 -Wno-implicit-int -fcommon -c -g -O2  conftest.c 1>&5
+configure:1210: checking for size_t
+configure:1243: checking whether struct tm is in sys/time.h or time.h
+configure:1256: gcc -std=gnu89 -Wno-implicit-int -fcommon -c -g -O2  conftest.c 1>&5
+configure:1278: checking return type of signal handlers
+configure:1300: gcc -std=gnu89 -Wno-implicit-int -fcommon -c -g -O2  conftest.c 1>&5
+configure:1319: checking for vprintf
+configure:1347: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1331:6: warning: conflicting types for built-in function 'vprintf'; expected 'int(const char *, __va_list_tag *)' [-Wbuiltin-declaration-mismatch]
+ 1331 | char vprintf();
+      |      ^~~~~~~
+configure:1328:1: note: 'vprintf' is declared in header '<stdio.h>'
+ 1327 | #include <assert.h>
+  +++ |+#include <stdio.h>
+ 1328 | /* Override any gcc2 internal prototype to avoid an error.  */
+configure:1426: checking for getcwd
+configure:1454: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1426: checking for getwd
+configure:1454: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+/usr/bin/ld: /tmp/ccUGcK4W.o: in function `main':
+/workspace/github__rnkn__priv/configure:1448:(.text.startup+0x7): warning: the `getwd' function is dangerous and should not be used.
+configure:1426: checking for getdtablesize
+configure:1454: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1426: checking for syslog
+configure:1454: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1481: checking for err
+configure:1509: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1481: checking for strdup
+configure:1509: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1493:6: warning: conflicting types for built-in function 'strdup'; expected 'char *(const char *)' [-Wbuiltin-declaration-mismatch]
+ 1493 | char $ac_func();
+      |      ^~~~~~
+configure:1481: checking for strsep
+configure:1509: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1481: checking for strerror
+configure:1509: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1481: checking for strspn
+configure:1509: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
+configure:1493:6: warning: conflicting types for built-in function 'strspn'; expected 'long unsigned int(const char *, const char *)' [-Wbuiltin-declaration-mismatch]
+ 1493 | char $ac_func();
+      |      ^~~~~~
+configure:1490:1: note: 'strspn' is declared in header '<string.h>'
+ 1489 | #include <assert.h>
+  +++ |+#include <string.h>
+ 1490 | /* Override any gcc2 internal prototype to avoid an error.  */
+configure:1481: checking for strtoul
+configure:1509: gcc -std=gnu89 -Wno-implicit-int -fcommon -o conftest -g -O2   conftest.c  1>&5
